@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+<head>
+  <meta charset="UTF-8" th:remove="tag">
+</head>
+<body>
+
+  <!-- コンテンツの表示 -->
+  <main layout:fragment="content" class="bg-image vh-100">
+    <div class="container pt-4">
+      <!-- 左右中央に配置 -->
+      <div class="row justify-content-center">
+
+        <div class="card shadow" style="max-width: 480px;">
+          <div class="card-body">
+            <h3 class="card-title mb-3 text-center text-navy">
+              ユーザ登録
+            </h3>
+
+            <form th:action="@{/register}" th:object="${user}"
+              method="post" novalidate>
+              <div class="mb-3">
+                <label for="username" class="form-label">
+                  <span class="badge bg-danger">必須</span>
+                  ユーザ名
+                </label>
+                <input class="form-control" type="text"
+                  th:errorclass="is-invalid" th:field="*{username}">
+                <div class="invalid-feedback" th:errors="*{username}">
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="password" class="form-label">
+                  <span class="badge bg-danger">必須</span>
+                  パスワード
+                </label>
+                <input class="form-control" type="password"
+                  th:errorclass="is-invalid" th:field="*{password}">
+                <div class="invalid-feedback" th:errors="*{password}">
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">
+                  <span class="badge bg-danger">必須</span>
+                  メールアドレス
+                </label>
+                <input class="form-control" type="email"
+                  th:errorclass="is-invalid" th:field="*{email}">
+                <div class="invalid-feedback" th:errors="*{email}">
+                </div>
+              </div>
+
+              <div class="mb-3">
+                性別
+                <div class="ms-2 form-check"
+                  th:each="gender :${T(com.example.demo.util.Type).GENDERS}">
+                  <input class="form-check-input" type="radio"
+                    th:field="*{gender}" th:value="${gender.key}">
+                  <label class="form-check-label"
+                    th:for="${#ids.prev('gender')}" th:text="${gender.value}">
+                  </label>
+                </div>
+              </div>
+
+              <div class="mb-3 form-check">
+                <input class="form-check-input" type="checkbox"
+                  th:field="*{admin}">
+                <label class="form-check-label"
+                  th:for="${#ids.prev('admin')}">
+                  管理者(Admin)として登録する
+                </label>
+              </div>
+
+              <button class="w-100 btn btn-navy" type="submit">
+                登録
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

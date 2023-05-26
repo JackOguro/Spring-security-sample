@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+<head>
+  <meta charset="UTF-8" th:remove="tag">
+</head>
+<body>
+
+  <!-- コンテンツの表示 -->
+  <main layout:fragment="content" class="bg-image">
+    <div class="container">
+      <!-- 画面中央に配置 -->
+      <div class="row vh-100 align-items-center justify-content-center">
+
+        <div class="card shadow" style="max-width: 480px;">
+          <div class="card-body">
+            <h3 class="card-title mb-3 text-center text-navy">
+              ユーザ管理システム
+            </h3>
+
+            <!-- ログインメッセージ -->
+            <div th:replace="~{fragments/message :: login}">
+            </div>
+
+            <form th:action="@{/login}" method="post">
+              <div class="mb-3">
+                <input class="form-control" type="text"
+                  name="username" placeholder="ユーザ名">
+              </div>
+
+              <div class="mb-3">
+                <input class="form-control" type="password"
+                  name="password" placeholder="パスワード">
+              </div>
+
+              <div class="mb-3 form-check">
+                <input class="form-check-input" type="checkbox"
+                  id="remember-me" name="remember-me">
+                <label class="form-check-label" for="remember-me">
+                  ログインしたままにする
+                </label>
+              </div>
+
+              <button class="w-100 btn btn-navy" type="submit">
+                ログイン
+              </button>
+            </form>
+
+            <hr>
+            <!-- ログインの下に、「新規登録はこちら」を追加します -->
+            <div class="text-center">
+              <a th:href="@{/register}" class="text-navy">
+                新規登録はこちら
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
